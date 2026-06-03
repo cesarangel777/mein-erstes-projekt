@@ -162,9 +162,20 @@ body {
   padding: 120px 24px 80px;
   position: relative;
   overflow: hidden;
-  max-width: 1160px;
+  max-width: 100%;
   margin: 0 auto;
 }
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Hero.png') center/cover no-repeat;
+  opacity: .18;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero .hero-content, .hero .hero-badges { max-width: 1160px; margin-left: auto; margin-right: auto; width: 100%; padding: 0; }
 
 .hero-grid {
   position: fixed;
@@ -219,6 +230,59 @@ body {
   color: var(--blue);
   letter-spacing: .08em;
 }
+
+/* ---- SECTION BACKGROUNDS ---- */
+#leistungen {
+  position: relative;
+}
+#leistungen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Leistungen.png') center/cover no-repeat;
+  opacity: .08;
+  z-index: 0;
+}
+#leistungen > * { position: relative; z-index: 1; }
+
+#zielgruppen {
+  position: relative;
+}
+#zielgruppen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Zielgruppen.png') center/cover no-repeat;
+  opacity: .1;
+  z-index: 0;
+}
+#zielgruppen > * { position: relative; z-index: 1; }
+
+#pakete {
+  position: relative;
+}
+#pakete::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Pakete.png') center/cover no-repeat;
+  opacity: .08;
+  z-index: 0;
+}
+#pakete > * { position: relative; z-index: 1; }
+
+#kontakt {
+  position: relative;
+}
+#kontakt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/CTA.png') center/cover no-repeat;
+  opacity: .1;
+  z-index: 0;
+}
+#kontakt > * { position: relative; z-index: 1; }
 
 /* ---- SERVICES ---- */
 .services-grid {

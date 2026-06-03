@@ -8,6 +8,49 @@
   position: relative;
   overflow: hidden;
 }
+.p-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Hero.png') center/cover no-repeat;
+  opacity: .15;
+  z-index: 0;
+}
+.p-hero > * { position: relative; z-index: 1; }
+
+/* SECTION BACKGROUNDS */
+#pakete { position: relative; }
+#pakete::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Pakete.png') center/cover no-repeat;
+  opacity: .07;
+  z-index: 0;
+}
+#pakete > * { position: relative; z-index: 1; }
+
+#spezial { position: relative; }
+#spezial::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/Zielgruppen.png') center/cover no-repeat;
+  opacity: .07;
+  z-index: 0;
+}
+#spezial > * { position: relative; z-index: 1; }
+
+.p-cta { position: relative; }
+.p-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('Bilder für Homepage CVS/CTA.png') center/cover no-repeat;
+  opacity: .12;
+  z-index: 0;
+}
+.p-cta > * { position: relative; z-index: 1; }
 .p-hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 6vw, 4.5rem);
