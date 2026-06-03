@@ -258,6 +258,15 @@ body {
 }
 .card p { color: var(--gray); font-size: .9rem; }
 
+.card-wide {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.card-wide .card-icon { flex-shrink: 0; }
+@media (max-width: 600px) { .card-wide { flex-direction: column; } }
+
 /* ---- TARGETS ---- */
 .target-grid {
   display: grid;
