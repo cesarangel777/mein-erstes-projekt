@@ -12,7 +12,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('Bilder für Homepage CVS/Hero.png') center/cover no-repeat;
+  background: url('images/Hero.png') center/cover no-repeat;
   opacity: .5;
   z-index: 0;
 }
@@ -24,7 +24,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('Bilder für Homepage CVS/Pakete.png') center/cover no-repeat;
+  background: url('images/Pakete.png') center/cover no-repeat;
   opacity: .35;
   z-index: 0;
 }
@@ -35,7 +35,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('Bilder für Homepage CVS/Zielgruppen.png') center/cover no-repeat;
+  background: url('images/Zielgruppen.png') center/cover no-repeat;
   opacity: .35;
   z-index: 0;
 }
@@ -46,7 +46,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('Bilder für Homepage CVS/CTA.png') center/cover no-repeat;
+  background: url('images/CTA.png') center/cover no-repeat;
   opacity: .4;
   z-index: 0;
 }
