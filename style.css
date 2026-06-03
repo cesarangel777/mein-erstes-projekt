@@ -171,7 +171,7 @@ body {
   position: absolute;
   inset: 0;
   background: url('Bilder für Homepage CVS/Hero.png') center/cover no-repeat;
-  opacity: .18;
+  opacity: .55;
   z-index: 0;
 }
 .hero > * { position: relative; z-index: 1; }
@@ -240,7 +240,7 @@ body {
   position: absolute;
   inset: 0;
   background: url('Bilder für Homepage CVS/Leistungen.png') center/cover no-repeat;
-  opacity: .08;
+  opacity: .4;
   z-index: 0;
 }
 #leistungen > * { position: relative; z-index: 1; }
@@ -253,7 +253,7 @@ body {
   position: absolute;
   inset: 0;
   background: url('Bilder für Homepage CVS/Zielgruppen.png') center/cover no-repeat;
-  opacity: .1;
+  opacity: .4;
   z-index: 0;
 }
 #zielgruppen > * { position: relative; z-index: 1; }
@@ -266,7 +266,7 @@ body {
   position: absolute;
   inset: 0;
   background: url('Bilder für Homepage CVS/Pakete.png') center/cover no-repeat;
-  opacity: .08;
+  opacity: .4;
   z-index: 0;
 }
 #pakete > * { position: relative; z-index: 1; }
@@ -279,7 +279,7 @@ body {
   position: absolute;
   inset: 0;
   background: url('Bilder für Homepage CVS/CTA.png') center/cover no-repeat;
-  opacity: .1;
+  opacity: .4;
   z-index: 0;
 }
 #kontakt > * { position: relative; z-index: 1; }
