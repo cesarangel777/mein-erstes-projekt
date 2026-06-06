@@ -3,239 +3,481 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C Visionary Studio – KI-Videos & Bilder</title>
+  <title>C Visionary Studio – KI-Videos & Bilder für Unternehmen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav">
+  <!-- NOISE OVERLAY -->
+  <div class="noise"></div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- ══════════════ NAV ══════════════ -->
+  <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="logo">C<span>VS</span></a>
-      <ul class="nav-links">
-        <li><a href="#leistungen">Leistungen</a></li>
-        <li><a href="#pakete">Pakete</a></li>
-        <li><a href="#einzeln">Einzelpreise</a></li>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#leistungen" class="nav-link">Leistungen</a></li>
+        <li><a href="#referenzen" class="nav-link">Referenzen</a></li>
+        <li><a href="#preise" class="nav-link">Preise</a></li>
+        <li><a href="#ablauf" class="nav-link">Ablauf</a></li>
         <li><a href="#kontakt" class="nav-cta">Anfrage starten</a></li>
       </ul>
-      <button class="burger" id="burger">&#9776;</button>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
-      <img src="images/Hero.png" alt="" />
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="hero" id="hero">
+
+    <!-- Video Background -->
+    <div class="hero-media">
+      <video autoplay muted loop playsinline id="heroVideo">
+        <source src="videos/hero-showcase.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-media-fallback"></div>
+      <div class="hero-overlay"></div>
     </div>
-    <div class="container">
-      <div class="hero-label">C Visionary Studio · Schweiz</div>
-      <h1>KI-Videos & Bilder<br><span>für moderne Unternehmen</span></h1>
-      <p class="hero-text">
-        Kreative KI-generierte Inhalte für KMUs, Bars, Clubs, Restaurants, Events und Marken —
-        professionell, auffällig und passend zur Marke.
+
+    <!-- Orbs -->
+    <div class="orb orb-blue" id="orbBlue"></div>
+    <div class="orb orb-red" id="orbRed"></div>
+
+    <!-- Particles -->
+    <canvas class="particles" id="particles"></canvas>
+
+    <div class="container hero-content">
+      <div class="hero-label" data-anim="fade-up">C Visionary Studio · Schweiz</div>
+      <h1 data-anim="fade-up" data-delay="100">
+        KI-Videos & Bilder<br />
+        <span class="hero-hl">für Unternehmen,<br />die sichtbar werden wollen.</span>
+      </h1>
+      <p class="hero-sub" data-anim="fade-up" data-delay="200">
+        C Visionary Studio erstellt kreative KI-generierte Videos, Bilder und Werbeinhalte
+        für KMUs, Bars, Clubs, Restaurants, Events und moderne Marken.
       </p>
-      <div class="hero-actions">
-        <a href="#pakete" class="btn-primary">Pakete ansehen</a>
-        <a href="#kontakt" class="btn-ghost">Projekt anfragen</a>
+      <div class="hero-btns" data-anim="fade-up" data-delay="300">
+        <a href="#kontakt" class="btn-glow">Projekt anfragen</a>
+        <a href="#referenzen" class="btn-outline">Referenzen ansehen</a>
       </div>
-      <div class="hero-platforms">
-        <span>Instagram</span><span>TikTok</span><span>Facebook</span><span>YouTube</span><span>Webseite</span>
-      </div>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+      <span></span>
+      <p>Scroll</p>
     </div>
   </section>
 
-  <!-- FÜR WEN -->
-  <div class="for-who">
-    <div class="container">
-      <span class="fw-label">Geeignet für</span>
-      <div class="fw-tags">
-        <span>KMUs</span><span>Bars & Clubs</span><span>Restaurants</span><span>Events</span>
-        <span>Beauty & Fitness</span><span>Barbershops</span><span>Shops & Marken</span><span>Dienstleister</span>
-      </div>
+  <!-- ══════════════ FÜR WEN ══════════════ -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>KMUs</span><span>·</span>
+      <span>Bars & Clubs</span><span>·</span>
+      <span>Restaurants</span><span>·</span>
+      <span>Events</span><span>·</span>
+      <span>Beauty & Barber</span><span>·</span>
+      <span>Fitnessstudios</span><span>·</span>
+      <span>lokale Marken</span><span>·</span>
+      <span>Shops</span><span>·</span>
+      <span>Dienstleister</span><span>·</span>
+      <span>Nightlife</span><span>·</span>
+      <!-- dupliziert für endlos-loop -->
+      <span>KMUs</span><span>·</span>
+      <span>Bars & Clubs</span><span>·</span>
+      <span>Restaurants</span><span>·</span>
+      <span>Events</span><span>·</span>
+      <span>Beauty & Barber</span><span>·</span>
+      <span>Fitnessstudios</span><span>·</span>
+      <span>lokale Marken</span><span>·</span>
+      <span>Shops</span><span>·</span>
+      <span>Dienstleister</span><span>·</span>
+      <span>Nightlife</span><span>·</span>
     </div>
   </div>
 
-  <!-- LEISTUNGEN -->
+  <!-- ══════════════ LEISTUNGEN ══════════════ -->
   <section class="section" id="leistungen">
-    <div class="hero-bg dim"><img src="images/Leistungen.png" alt="" /></div>
+    <div class="section-bg"><img src="images/Leistungen.png" alt="" /></div>
     <div class="container">
-      <div class="s-label">Was wir erstellen</div>
-      <h2>Unser <span class="hl">Angebot</span></h2>
-      <div class="leist-grid">
+      <div class="s-eyebrow" data-scroll>Was wir erstellen</div>
+      <h2 class="s-title" data-scroll>Kreative Inhalte<br /><span class="hl">mit KI-Technologie</span></h2>
 
-        <div class="leist-card">
-          <div class="leist-num">01</div>
+      <div class="services-grid">
+
+        <div class="service-card glass" data-scroll data-delay="0">
+          <div class="sc-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="8" width="40" height="28" rx="3" stroke="currentColor" stroke-width="2"/><path d="M20 18l10 6-10 6V18z" fill="currentColor"/><path d="M16 40h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
           <h3>KI-Videos</h3>
-          <p>Kurzvideos, Reels, Werbeclips, Eventtrailer und Produktvideos für Social Media. Ideal für Unternehmen, die ihre Angebote, Events oder Dienstleistungen kreativ präsentieren möchten.</p>
-          <div class="leist-tags"><span>Reels</span><span>Werbeclips</span><span>Eventtrailer</span><span>Produktvideos</span></div>
+          <p>Kurzvideos, Reels, Werbeclips, Eventtrailer und Produktvideos für Social Media. Kreativ, modern, aufmerksamkeitsstark.</p>
+          <div class="sc-tags"><span>Reels</span><span>Werbeclips</span><span>Eventtrailer</span><span>Produktvideos</span></div>
+          <div class="sc-glow"></div>
         </div>
 
-        <div class="leist-card">
-          <div class="leist-num">02</div>
+        <div class="service-card glass" data-scroll data-delay="100">
+          <div class="sc-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="4" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="currentColor"/><path d="M4 30l10-10 8 8 6-6 16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <h3>KI-Bilder</h3>
-          <p>Werbebilder, Kampagnenvisuals, Event-Flyer, Produktbilder, Social-Media-Posts und Website-Banner. Starke Visuals ohne Fotoshooting.</p>
-          <div class="leist-tags"><span>Event-Flyer</span><span>Kampagnenvisuals</span><span>Posts</span><span>Banner</span></div>
+          <p>Werbevisuals, Kampagnenbilder, Event-Flyer, Produktbilder und Website-Banner. Starke Visuals ohne Fotoshooting.</p>
+          <div class="sc-tags"><span>Event-Flyer</span><span>Kampagnen</span><span>Posts</span><span>Banner</span></div>
+          <div class="sc-glow sc-glow-red"></div>
         </div>
 
-        <div class="leist-card">
-          <div class="leist-num">03</div>
+        <div class="service-card glass" data-scroll data-delay="200">
+          <div class="sc-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><rect x="26" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><rect x="4" y="26" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><rect x="26" y="26" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
           <h3>Content-Pakete</h3>
-          <p>Kombinierte Pakete aus Videos, Bildern, Story-Visuals und Textvorschlägen. Für Unternehmen, die regelmässig auf Social Media sichtbar bleiben möchten.</p>
-          <div class="leist-tags"><span>Monatlich</span><span>Stories</span><span>Captions</span><span>Kampagnen</span></div>
+          <p>Kombinierte Pakete aus Videos, Bildern, Story-Visuals und Textvorschlägen für regelmässige Sichtbarkeit auf Social Media.</p>
+          <div class="sc-tags"><span>Monatlich</span><span>Stories</span><span>Captions</span><span>Kampagnen</span></div>
+          <div class="sc-glow"></div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- PAKETE -->
-  <section class="section bg-alt" id="pakete">
-    <div class="hero-bg dim"><img src="images/Pakete.png" alt="" /></div>
+  <!-- ══════════════ REFERENZEN SHOWCASE ══════════════ -->
+  <section class="section section-dark" id="referenzen">
     <div class="container">
-      <div class="s-label">Preise & Pakete</div>
-      <h2>Das richtige Paket<br><span class="hl">für dein Unternehmen</span></h2>
-      <p class="s-sub">Einmalige Projekte — kein Abo, keine versteckten Kosten.</p>
+      <div class="s-eyebrow" data-scroll>Referenzen & Showcase</div>
+      <h2 class="s-title" data-scroll>Visuelle Konzepte,<br /><span class="hl">die auffallen.</span></h2>
+      <p class="s-sub" data-scroll>Hier entstehen KI-generierte Videos, Bilder und Kampagnenvisuals für Social Media, Events und digitale Werbung.</p>
 
-      <div class="pkg-grid">
+      <div class="showcase-grid" data-scroll>
 
-        <div class="pkg-card">
-          <div class="pkg-top">
-            <div>
-              <div class="pkg-name">Starter Content</div>
-              <div class="pkg-for">Für kleine Unternehmen oder erste Tests</div>
-            </div>
-            <div class="pkg-price">CHF 390<span>einmalig</span></div>
+        <!-- Grosse Hauptkachel -->
+        <div class="showcase-item showcase-main" data-media="videos/showcase-01.mp4" data-type="video">
+          <div class="si-bg" style="background: linear-gradient(135deg, #0a1628 0%, #1a0a2e 100%)"></div>
+          <video class="si-video" autoplay muted loop playsinline><source src="videos/showcase-01.mp4" type="video/mp4"/></video>
+          <div class="si-overlay"></div>
+          <div class="si-content">
+            <div class="si-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="si-label">KI-Video Referenz 01</div>
+            <div class="si-tag">16:9</div>
           </div>
+        </div>
+
+        <!-- Zwei kleinere rechts -->
+        <div class="showcase-item" data-media="videos/showcase-02.mp4" data-type="video">
+          <div class="si-bg" style="background: linear-gradient(135deg, #0a1e28 0%, #001a2e 100%)"></div>
+          <video class="si-video" autoplay muted loop playsinline><source src="videos/showcase-02.mp4" type="video/mp4"/></video>
+          <div class="si-overlay"></div>
+          <div class="si-content">
+            <div class="si-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="si-label">Event Trailer</div>
+            <div class="si-tag">16:9</div>
+          </div>
+        </div>
+
+        <div class="showcase-item showcase-reel">
+          <div class="si-bg" style="background: linear-gradient(135deg, #1a0a14 0%, #2a0a1a 100%)"></div>
+          <video class="si-video" autoplay muted loop playsinline><source src="videos/showcase-03.mp4" type="video/mp4"/></video>
+          <div class="si-overlay"></div>
+          <div class="si-content">
+            <div class="si-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="si-label">Social Media Reel</div>
+            <div class="si-tag">9:16</div>
+          </div>
+        </div>
+
+        <!-- Drei untere Kacheln -->
+        <div class="showcase-item">
+          <div class="si-bg" style="background: linear-gradient(135deg, #0f1a0a 0%, #0a2014 100%)"></div>
+          <img class="si-img" src="images/showcase-01.jpg" alt="KI-Bild Kampagne" loading="lazy" />
+          <div class="si-overlay"></div>
+          <div class="si-content">
+            <div class="si-label">KI-Bild Kampagne</div>
+            <div class="si-tag">Visual</div>
+          </div>
+        </div>
+
+        <div class="showcase-item">
+          <div class="si-bg" style="background: linear-gradient(135deg, #1a1a0a 0%, #2a1a00 100%)"></div>
+          <img class="si-img" src="images/showcase-02.jpg" alt="Produkt Visual" loading="lazy" />
+          <div class="si-overlay"></div>
+          <div class="si-content">
+            <div class="si-label">Produkt Visual</div>
+            <div class="si-tag">Visual</div>
+          </div>
+        </div>
+
+        <div class="showcase-item">
+          <div class="si-bg" style="background: linear-gradient(135deg, #1a0a0a 0%, #200010 100%)"></div>
+          <img class="si-img" src="images/showcase-03.jpg" alt="Nightlife Promo" loading="lazy" />
+          <div class="si-overlay"></div>
+          <div class="si-content">
+            <div class="si-label">Nightlife Promo</div>
+            <div class="si-tag">Visual</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ ZIELGRUPPEN ══════════════ -->
+  <section class="section" id="zielgruppen">
+    <div class="section-bg"><img src="images/Zielgruppen.png" alt="" /></div>
+    <div class="container">
+      <div class="s-eyebrow" data-scroll>Für wen</div>
+      <h2 class="s-title" data-scroll>Für Unternehmen,<br /><span class="hl">die gesehen werden wollen.</span></h2>
+
+      <div class="target-grid">
+
+        <div class="target-card glass" data-scroll data-delay="0">
+          <div class="tc-icon">🏢</div>
+          <h4>KMUs & Dienstleister</h4>
+          <p>Moderne Werbevideos und Bilder für einen professionellen Auftritt.</p>
+        </div>
+        <div class="target-card glass" data-scroll data-delay="80">
+          <div class="tc-icon">🍹</div>
+          <h4>Bars & Clubs</h4>
+          <p>Eventtrailer, Flyer, Storys und Reels für volle Aufmerksamkeit.</p>
+        </div>
+        <div class="target-card glass" data-scroll data-delay="160">
+          <div class="tc-icon">🍽️</div>
+          <h4>Restaurants & Gastro</h4>
+          <p>Food-Visuals, Angebotsvideos und Social-Media-Content.</p>
+        </div>
+        <div class="target-card glass" data-scroll data-delay="240">
+          <div class="tc-icon">🎉</div>
+          <h4>Events & Nightlife</h4>
+          <p>Promo-Videos, digitale Flyer und Countdown-Storys für Events.</p>
+        </div>
+        <div class="target-card glass" data-scroll data-delay="80">
+          <div class="tc-icon">✂️</div>
+          <h4>Beauty & Barber</h4>
+          <p>Vorher/Nachher-Visuals, Angebotsposts und Brand-Content.</p>
+        </div>
+        <div class="target-card glass" data-scroll data-delay="160">
+          <div class="tc-icon">💪</div>
+          <h4>Fitnessstudios</h4>
+          <p>Motivationsvideos, Angebots-Reels und Content für Social Media.</p>
+        </div>
+        <div class="target-card glass" data-scroll data-delay="240">
+          <div class="tc-icon">🛍️</div>
+          <h4>Shops & lokale Marken</h4>
+          <p>Produktvideos, Kampagnenvisuals und Werbebilder.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ PREISE ══════════════ -->
+  <section class="section section-dark" id="preise">
+    <div class="section-bg"><img src="images/Pakete.png" alt="" /></div>
+    <div class="container">
+      <div class="s-eyebrow" data-scroll>Preise & Pakete</div>
+      <h2 class="s-title" data-scroll>Einfache Pakete<br /><span class="hl">für den Start.</span></h2>
+      <p class="s-sub" data-scroll>Ob einzelnes Visual, erstes Reel oder kleines Content-Paket – faire Einstiegspreise, kein Abo, keine versteckten Kosten.</p>
+
+      <div class="pricing-grid">
+
+        <div class="pricing-card glass" data-scroll data-delay="0">
+          <div class="pc-name">Starter Content</div>
+          <div class="pc-price">CHF 190<span>einmalig</span></div>
+          <p class="pc-for">Für kleine Unternehmen oder erste Tests.</p>
           <ul>
-            <li>2 KI-Bilder</li>
+            <li>1 KI-Bild / Werbevisual</li>
             <li>1 Kurzvideo / Reel</li>
             <li>1 Story-Format</li>
-            <li>Caption / Textvorschlag</li>
+            <li>1 Caption / Textvorschlag</li>
             <li>1 Korrekturrunde</li>
           </ul>
-          <a href="#kontakt" class="pkg-btn">Starter anfragen</a>
+          <a href="#kontakt" class="pc-btn">Starter anfragen</a>
         </div>
 
-        <div class="pkg-card pkg-highlight">
-          <div class="pkg-popular">Beliebt</div>
-          <div class="pkg-top">
-            <div>
-              <div class="pkg-name">Business Content</div>
-              <div class="pkg-for">Für professionellere Auftritte</div>
-            </div>
-            <div class="pkg-price">CHF 790<span>einmalig</span></div>
-          </div>
+        <div class="pricing-card glass pc-featured" data-scroll data-delay="100">
+          <div class="pc-badge">Empfohlen</div>
+          <div class="pc-name">Business Content</div>
+          <div class="pc-price">CHF 390<span>einmalig</span></div>
+          <p class="pc-for">Für Unternehmen, die mehrere Inhalte testen möchten.</p>
           <ul>
-            <li>5 KI-Bilder</li>
-            <li>3 Kurzvideos / Reels</li>
-            <li>3 Story-Visuals</li>
+            <li>3 KI-Bilder / Werbevisuals</li>
+            <li>2 Kurzvideos / Reels</li>
+            <li>2 Story-Visuals</li>
             <li>Captions / Textvorschläge</li>
             <li>Einfache Kampagnenidee</li>
-            <li>1–2 Korrekturrunden</li>
+            <li>1 Korrekturrunde</li>
           </ul>
-          <a href="#kontakt" class="pkg-btn pkg-btn-filled">Business anfragen</a>
+          <a href="#kontakt" class="pc-btn pc-btn-filled">Business anfragen</a>
         </div>
 
-        <div class="pkg-card">
-          <div class="pkg-top">
-            <div>
-              <div class="pkg-name">Premium Content</div>
-              <div class="pkg-for">Für regelmässigen Content-Bedarf</div>
-            </div>
-            <div class="pkg-price">CHF 1'290<span>einmalig</span></div>
-          </div>
+        <div class="pricing-card glass" data-scroll data-delay="200">
+          <div class="pc-name">Premium Content</div>
+          <div class="pc-price">CHF 690<span>einmalig</span></div>
+          <p class="pc-for">Für ein Event, eine Aktion oder einen kompletten Monat.</p>
           <ul>
-            <li>10 KI-Bilder</li>
-            <li>5 Kurzvideos / Reels</li>
-            <li>5 Story-Visuals</li>
+            <li>6 KI-Bilder / Werbevisuals</li>
+            <li>3 Kurzvideos / Reels</li>
+            <li>4 Story-Visuals</li>
             <li>Kampagnenidee</li>
             <li>Captions / Textvorschläge</li>
-            <li>Content-Vorschlag für Social Media</li>
-            <li>2 Korrekturrunden</li>
+            <li>Social-Media-Formatierung</li>
+            <li>1–2 Korrekturrunden</li>
           </ul>
-          <a href="#kontakt" class="pkg-btn">Premium anfragen</a>
+          <a href="#kontakt" class="pc-btn">Premium anfragen</a>
         </div>
 
+      </div>
+
+      <!-- Pilot Deal Banner -->
+      <div class="pilot-banner" data-scroll>
+        <div class="pb-left">
+          <span class="pb-tag">Pilot Deal</span>
+          <strong>Für die ersten 5 Kunden: CHF 150.–</strong>
+          <p>1 KI-Bild · 1 Kurzvideo/Reel · 1 Caption · 1 Korrekturrunde</p>
+        </div>
+        <a href="#kontakt" class="btn-glow-sm">Jetzt sichern</a>
       </div>
     </div>
   </section>
 
-  <!-- EINZELPREISE -->
+  <!-- ══════════════ EINZELLEISTUNGEN ══════════════ -->
   <section class="section" id="einzeln">
     <div class="container">
-      <div class="s-label">À la carte</div>
-      <h2>Einzelne <span class="hl">Leistungen</span></h2>
-      <p class="s-sub">Nur das bestellen, was du brauchst.</p>
+      <div class="s-eyebrow" data-scroll>À la carte</div>
+      <h2 class="s-title" data-scroll>Einzelne <span class="hl">Leistungen</span></h2>
 
-      <div class="price-list">
-        <div class="price-row"><span>1 KI-Bild / Werbevisual</span><span>ab CHF 70.–</span></div>
-        <div class="price-row"><span>3 KI-Bilder</span><span>ab CHF 180.–</span></div>
-        <div class="price-row"><span>1 Kurzvideo / Reel</span><span>ab CHF 190.–</span></div>
-        <div class="price-row"><span>1 Event-Flyer</span><span>ab CHF 150.–</span></div>
-        <div class="price-row"><span>1 Event-Trailer</span><span>ab CHF 300.–</span></div>
-        <div class="price-row"><span>Website-Banner / Hero Visual</span><span>ab CHF 150.–</span></div>
-        <div class="price-row"><span>Bildbearbeitung / Hintergrund ändern</span><span>ab CHF 80.–</span></div>
+      <div class="single-list" data-scroll>
+        <div class="sl-row"><span>1 KI-Bild / Werbevisual</span><span>ab CHF 50.–</span></div>
+        <div class="sl-row"><span>3 KI-Bilder</span><span>ab CHF 120.–</span></div>
+        <div class="sl-row"><span>1 Kurzvideo / Reel</span><span>ab CHF 120.–</span></div>
+        <div class="sl-row"><span>1 Event-Flyer</span><span>ab CHF 90.–</span></div>
+        <div class="sl-row"><span>1 Event-Trailer</span><span>ab CHF 180.–</span></div>
+        <div class="sl-row"><span>Website-Banner / Hero Visual</span><span>ab CHF 100.–</span></div>
+        <div class="sl-row"><span>Bildbearbeitung / Hintergrund ändern</span><span>ab CHF 50.–</span></div>
       </div>
     </div>
   </section>
 
-  <!-- KONTAKT -->
-  <section class="section bg-alt" id="kontakt">
-    <div class="hero-bg dim"><img src="images/CTA.png" alt="" /></div>
+  <!-- ══════════════ ABLAUF ══════════════ -->
+  <section class="section section-dark" id="ablauf">
     <div class="container">
-      <div class="cta-box">
-        <div class="cta-text">
-          <div class="s-label">Loslegen</div>
-          <h2>Bereit für modernen <span class="hl">Content?</span></h2>
-          <p>Ob einzelnes Werbevisual, ein Eventtrailer oder ein komplettes Content-Paket – wir erstellen kreative KI-Videos und Bilder, die dein Unternehmen sichtbar machen.</p>
+      <div class="s-eyebrow" data-scroll>So funktioniert's</div>
+      <h2 class="s-title" data-scroll>Vom Wunsch zum<br /><span class="hl">fertigen Content.</span></h2>
+
+      <div class="process-timeline">
+
+        <div class="process-step" data-scroll data-delay="0">
+          <div class="ps-number">01</div>
+          <div class="ps-body">
+            <h4>Anfrage</h4>
+            <p>Du beschreibst, was du brauchst: Video, Bild, Event, Produkt oder Angebot.</p>
+          </div>
         </div>
-        <form class="cta-form" onsubmit="handleForm(event)">
+        <div class="process-connector" aria-hidden="true"></div>
+
+        <div class="process-step" data-scroll data-delay="150">
+          <div class="ps-number">02</div>
+          <div class="ps-body">
+            <h4>Konzept</h4>
+            <p>Wir definieren Stil, Zielgruppe, Format und kreative Richtung.</p>
+          </div>
+        </div>
+        <div class="process-connector" aria-hidden="true"></div>
+
+        <div class="process-step" data-scroll data-delay="300">
+          <div class="ps-number">03</div>
+          <div class="ps-body">
+            <h4>Erstellung</h4>
+            <p>Die KI-Visuals, Videos und Inhalte werden erstellt und bearbeitet.</p>
+          </div>
+        </div>
+        <div class="process-connector" aria-hidden="true"></div>
+
+        <div class="process-step" data-scroll data-delay="450">
+          <div class="ps-number">04</div>
+          <div class="ps-body">
+            <h4>Lieferung</h4>
+            <p>Du erhältst fertige Dateien für Social Media, Website oder Werbung.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CTA ══════════════ -->
+  <section class="section cta-section" id="kontakt">
+    <div class="cta-media">
+      <img src="images/CTA.png" alt="" />
+      <div class="cta-overlay"></div>
+    </div>
+    <div class="container">
+      <div class="cta-grid">
+
+        <div class="cta-left" data-scroll>
+          <div class="s-eyebrow">Loslegen</div>
+          <h2>Bereit für Content,<br /><span class="hl">der auffällt?</span></h2>
+          <p>Ob erstes KI-Visual, Eventtrailer oder komplettes Content-Paket – C Visionary Studio hilft dir, deine Marke modern und kreativ sichtbar zu machen.</p>
+          <div class="cta-btns">
+            <a href="mailto:info@cvisionarystudio.ch" class="btn-glow">Projekt anfragen</a>
+            <a href="mailto:info@cvisionarystudio.ch" class="btn-outline">Erstes Gespräch starten</a>
+          </div>
+        </div>
+
+        <form class="cta-form glass" data-scroll onsubmit="handleForm(event)">
+          <h3>Schnellanfrage</h3>
           <input type="text" placeholder="Name / Unternehmen" required />
           <input type="email" placeholder="E-Mail-Adresse" required />
           <select>
             <option value="" disabled selected>Welches Paket interessiert dich?</option>
-            <option>Starter Content – CHF 390.–</option>
-            <option>Business Content – CHF 790.–</option>
-            <option>Premium Content – CHF 1'290.–</option>
+            <option>Starter Content – CHF 190.–</option>
+            <option>Business Content – CHF 390.–</option>
+            <option>Premium Content – CHF 690.–</option>
+            <option>Pilot Deal – CHF 150.–</option>
             <option>Einzelne Leistung</option>
             <option>Noch nicht sicher</option>
           </select>
           <textarea placeholder="Kurze Beschreibung deines Projekts..." rows="4"></textarea>
-          <button type="submit" class="btn-primary full">Anfrage senden →</button>
+          <button type="submit" class="btn-glow full-btn">Anfrage senden →</button>
         </form>
+
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ══════════════ FOOTER ══════════════ -->
   <footer class="footer">
     <div class="container footer-inner">
-      <span class="logo">C<span>VS</span></span>
-      <p>© 2025 C Visionary Studio · Schweiz</p>
-      <p class="footer-sub">KI-Videos & Bilder für moderne Unternehmen</p>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="logo">C<span>VS</span></span>
+          <p>KI-Videos & Bilder für moderne Unternehmen</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="#leistungen">Leistungen</a>
+          <a href="#referenzen">Referenzen</a>
+          <a href="#preise">Preise</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+        <div class="footer-contact">
+          <a href="mailto:info@cvisionarystudio.ch">✉ info@cvisionarystudio.ch</a>
+          <a href="#">📸 Instagram</a>
+          <a href="#">🎵 TikTok</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 C Visionary Studio · Schweiz</p>
+        <div class="footer-legal">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script>
-    document.getElementById('burger').addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.toggle('open');
-    });
-    function handleForm(e) {
-      e.preventDefault();
-      alert('Anfrage gesendet! Wir melden uns bald bei dir.');
-      e.target.reset();
-    }
-    // Scroll reveal
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.leist-card, .pkg-card, .price-row').forEach(el => {
-      el.classList.add('reveal');
-      io.observe(el);
-    });
-  </script>
-
+  <script src="app.js"></script>
 </body>
 </html>
