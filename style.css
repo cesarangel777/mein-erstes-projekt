@@ -222,10 +222,8 @@ h2 { font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: 
 .hero-media-fallback {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 120% 100% at 15% 20%, rgba(0,110,210,.35) 0%, transparent 65%),
-    radial-gradient(ellipse 100% 90% at 85% 80%, rgba(255,20,60,.22) 0%, transparent 60%),
-    radial-gradient(ellipse 130% 110% at 50% 50%, rgba(0,70,150,.28) 0%, transparent 75%),
-    linear-gradient(160deg, rgba(0,90,180,.12) 0%, rgba(20,5,30,.1) 50%, rgba(120,10,30,.12) 100%);
+    radial-gradient(ellipse 140% 120% at 50% 30%, rgba(0,90,190,.25) 0%, rgba(5,12,30,.55) 55%, rgba(3,6,16,.85) 100%),
+    linear-gradient(180deg, #0a1628 0%, #060c1a 55%, #050810 100%);
 }
 .hero-overlay {
   position: absolute; inset: 0;
@@ -241,14 +239,14 @@ h2 { font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: 
 .orb-blue {
   width: 100%; height: 100%;
   top: 0; left: 0;
-  background: radial-gradient(ellipse 70% 60% at 30% 40%, rgba(0,140,255,.22) 0%, transparent 70%);
+  background: radial-gradient(ellipse 90% 70% at 25% 30%, rgba(0,140,255,.12) 0%, transparent 70%);
   filter: blur(0);
   border-radius: 0;
 }
 .orb-red {
   width: 100%; height: 100%;
   top: 0; left: 0;
-  background: radial-gradient(ellipse 50% 55% at 75% 65%, rgba(255,23,68,.13) 0%, transparent 65%);
+  background: radial-gradient(ellipse 60% 55% at 78% 70%, rgba(255,23,68,.06) 0%, transparent 65%);
   filter: blur(0);
   border-radius: 0;
   animation-delay: -4s;
