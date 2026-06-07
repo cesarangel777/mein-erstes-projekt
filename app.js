@@ -77,41 +77,23 @@ window.addEventListener('scroll', () => {
 const canvas = document.getElementById('particles');
 if (canvas) {
   const ctx = canvas.getContext('2d');
-  // Sensible fallback so particles have valid coordinates before the first
-  // ResizeObserver callback fires (it's async / queued as a microtask).
-  let w = canvas.clientWidth  || window.innerWidth;
-  let h = canvas.clientHeight || window.innerHeight;
-  let particles = [];
+  let w = 0, h = 0, particles = [];
 
-  function applySize(cw, ch) {
-    if (!cw || !ch) return;
+  // Checked every animation frame — guarantees the canvas always matches its
+  // real on-screen size, no matter when layout/fonts/images settle. Cheap:
+  // just two numeric reads per frame, only acts when the size actually changed.
+  function syncSize() {
+    const cw = canvas.clientWidth;
+    const ch = canvas.clientHeight;
+    if (!cw || !ch) return false;
+    if (cw === w && ch === h) return false;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     w = cw; h = ch;
     canvas.width  = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     particles.forEach(p => p.reset());
-  }
-
-  // ResizeObserver fires immediately on observe with the real rendered size,
-  // and again whenever the hero section's size changes (layout shifts, fonts, viewport resize).
-  if ('ResizeObserver' in window) {
-    const ro = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const box = entry.contentRect;
-        applySize(box.width, box.height);
-      }
-    });
-    ro.observe(canvas);
-  } else {
-    function resize() {
-      const rect = canvas.getBoundingClientRect();
-      applySize(rect.width, rect.height);
-    }
-    resize();
-    window.addEventListener('resize', resize);
-    window.addEventListener('load', resize);
-    setTimeout(resize, 300);
+    return true;
   }
 
   class Particle {
@@ -144,9 +126,13 @@ if (canvas) {
     }
   }
 
+  // Establish a real size before creating particles so their initial
+  // coordinates already span the full hero area on first paint.
+  syncSize();
   for (let i = 0; i < 130; i++) particles.push(new Particle());
 
   (function animate() {
+    syncSize();
     ctx.clearRect(0, 0, w, h);
     particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animate);
