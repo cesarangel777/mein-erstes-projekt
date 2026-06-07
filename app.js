@@ -80,11 +80,18 @@ if (canvas) {
   let w, h, particles = [];
 
   function resize() {
-    w = canvas.width  = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
+    const rect = canvas.getBoundingClientRect();
+    w = canvas.width  = rect.width;
+    h = canvas.height = rect.height;
+    particles.forEach(p => p.reset());
   }
   resize();
   window.addEventListener('resize', resize);
+  window.addEventListener('load', resize);
+  // Re-measure shortly after initial render in case layout/fonts shift the hero height
+  setTimeout(resize, 200);
+  setTimeout(resize, 1000);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);
 
   class Particle {
     constructor() { this.reset(); }
