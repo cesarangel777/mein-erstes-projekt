@@ -77,21 +77,42 @@ window.addEventListener('scroll', () => {
 const canvas = document.getElementById('particles');
 if (canvas) {
   const ctx = canvas.getContext('2d');
-  let w, h, particles = [];
+  // Sensible fallback so particles have valid coordinates before the first
+  // ResizeObserver callback fires (it's async / queued as a microtask).
+  let w = canvas.clientWidth  || window.innerWidth;
+  let h = canvas.clientHeight || window.innerHeight;
+  let particles = [];
 
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    w = canvas.width  = rect.width;
-    h = canvas.height = rect.height;
+  function applySize(cw, ch) {
+    if (!cw || !ch) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = cw; h = ch;
+    canvas.width  = Math.round(cw * dpr);
+    canvas.height = Math.round(ch * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     particles.forEach(p => p.reset());
   }
-  resize();
-  window.addEventListener('resize', resize);
-  window.addEventListener('load', resize);
-  // Re-measure shortly after initial render in case layout/fonts shift the hero height
-  setTimeout(resize, 200);
-  setTimeout(resize, 1000);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);
+
+  // ResizeObserver fires immediately on observe with the real rendered size,
+  // and again whenever the hero section's size changes (layout shifts, fonts, viewport resize).
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const box = entry.contentRect;
+        applySize(box.width, box.height);
+      }
+    });
+    ro.observe(canvas);
+  } else {
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      applySize(rect.width, rect.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('load', resize);
+    setTimeout(resize, 300);
+  }
 
   class Particle {
     constructor() { this.reset(); }
