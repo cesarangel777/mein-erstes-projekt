@@ -91,26 +91,32 @@ if (canvas) {
     reset() {
       this.x = Math.random() * w;
       this.y = Math.random() * h;
-      this.size  = Math.random() * 1.4 + .4;
+      this.size  = Math.random() * 1.6 + .6;
       this.speedX = (Math.random() - .5) * .3;
       this.speedY = -Math.random() * .6 - .2;
-      this.opacity = Math.random() * .5 + .1;
-      this.color = Math.random() > .6 ? '0,175,255' : '255,255,255';
+      this.opacity = Math.random() * .6 + .35;
+      this.color = Math.random() > .6 ? '90,195,255' : '255,255,255';
     }
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
       if (this.y < -10) this.reset();
+      if (this.x < -10) this.x = w + 10;
+      if (this.x > w + 10) this.x = -10;
     }
     draw() {
+      ctx.save();
+      ctx.shadowBlur = this.size * 3;
+      ctx.shadowColor = `rgba(${this.color},.9)`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
       ctx.fill();
+      ctx.restore();
     }
   }
 
-  for (let i = 0; i < 80; i++) particles.push(new Particle());
+  for (let i = 0; i < 130; i++) particles.push(new Particle());
 
   (function animate() {
     ctx.clearRect(0, 0, w, h);
